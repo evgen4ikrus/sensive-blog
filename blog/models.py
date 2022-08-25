@@ -7,7 +7,7 @@ from django.urls import reverse
 class TagQuerySet(models.QuerySet):
 
     def popular(self):
-        tags = Tag.objects.annotate(
+        tags = self.annotate(
             num_posts=Count('posts')).order_by('-num_posts')
         return tags
 
@@ -15,7 +15,7 @@ class TagQuerySet(models.QuerySet):
 class PostQuerySet(models.QuerySet):
 
     def popular(self):
-        posts = Post.objects.annotate(
+        posts = self.annotate(
             num_likes=Count('likes')).order_by('-num_likes')
         return posts
 
